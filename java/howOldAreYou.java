@@ -62,7 +62,7 @@ public class howOldAreYou extends AppCompatActivity {
                     USER_SIGN_UP.putString("password", password);
                     USER_SIGN_UP.putString("age", Integer.toString(age));
 
-                    setNameOfUsersIntent.putExtra("USER_SIGN_UP", USER_SIGN_UP);
+                    setNameOfUsersIntent.putExtras(USER_SIGN_UP);
 
                     startActivity(setNameOfUsersIntent);
                 }

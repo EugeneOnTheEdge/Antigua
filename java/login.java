@@ -73,7 +73,7 @@ public class login extends AppCompatActivity {
                             USER_SIGNED_IN.putString("favoriteSports", userArray[5]);
                             USER_SIGNED_IN.putString("favoriteCable", userArray[6]);
 
-                            showOtherUsersIntent.putExtra("USER_SIGNED_IN", USER_SIGNED_IN);
+                            showOtherUsersIntent.putExtras(USER_SIGNED_IN);
 
                             startActivity(showOtherUsersIntent);
                         }
@@ -93,7 +93,7 @@ public class login extends AppCompatActivity {
                             USER_SIGN_UP.putString("username", username);
                             USER_SIGN_UP.putString("password", password);
 
-                            howOldAreYouIntent.putExtra("USER_SIGN_UP", USER_SIGN_UP);
+                            howOldAreYouIntent.putExtras(USER_SIGN_UP);
 
                             startActivity(howOldAreYouIntent);
                         }
