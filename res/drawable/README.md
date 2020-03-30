@@ -1,1 +1,1 @@
-Drawable directory contains all the images.
+Drawable directory.
