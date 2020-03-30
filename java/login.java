@@ -29,7 +29,7 @@ public class login extends AppCompatActivity {
         this.edittext_password = findViewById(R.id.EditText_password);
         this.button_next = findViewById(R.id.button_next);
 
-        final String database = "users_database.txt";
+        final String database = "USERS_DATABASE.txt";
         final Intent showOtherUsersIntent = new Intent(this, showingOtherUsers.class);
         final Intent howOldAreYouIntent = new Intent(this, howOldAreYou.class);
 
