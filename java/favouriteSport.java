@@ -2,6 +2,7 @@ package com.example.project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,8 @@ public class favouriteSport extends AppCompatActivity {
         this.button_skip.setWidth(150);
         this.button_skip.setBackgroundColor(0xFF9900FF);
         this.button_skip.setTextColor(0xFFFFFFFF);
+
+        final Intent favouriteCableNetworkIntent = new Intent(this, favouriteCableNetwork.class);
 
         this.button_golf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +108,27 @@ public class favouriteSport extends AppCompatActivity {
                     button_skip.setText("SKIP →");
                     button_skip.setWidth(150);
                 }
+            }
+        });
+
+        this.button_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle currentUser = getIntent().getExtras();
+
+                String favSports = "";
+
+                if (golf)
+                    favSports += "GOLF-";
+                if (walking)
+                    favSports += "WALKING-";
+                if (frisbee)
+                    favSports += "FRISBEE";
+
+                currentUser.putString("favouriteSports", favSports);
+                favouriteCableNetworkIntent.putExtras(currentUser);
+
+                startActivity(favouriteCableNetworkIntent);
             }
         });
     }

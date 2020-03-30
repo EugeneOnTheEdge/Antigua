@@ -26,8 +26,11 @@ public class howOldAreYou extends AppCompatActivity {
 
         final Intent setNameOfUsersIntent = new Intent(this, setNameOfUsers.class);
 
-        this.seekbar_age.setProgress(50);
+        this.seekbar_age.setProgress(49);
         this.seekbar_age.incrementProgressBy(1);
+
+        this.edittext_age.setText(Integer.toString(this.seekbar_age.getProgress()));
+
         this.seekbar_age.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
