@@ -64,14 +64,15 @@ public class login extends AppCompatActivity {
                         // Else, if username and password are found in db
                         else if (username.equals(userArray[0]) && password.equals(userArray[1])) {
                             user_found_in_database = true;
+                            Toast.makeText(login.this, "Welcome back, " + userArray[3] + " " + userArray[4] +"!", Toast.LENGTH_SHORT).show();
 
                             Bundle USER_SIGNED_IN = new Bundle();
                             USER_SIGNED_IN.putString("username", username);
                             USER_SIGNED_IN.putString("age", userArray[2]);
                             USER_SIGNED_IN.putString("firstName", userArray[3]);
                             USER_SIGNED_IN.putString("lastName", userArray[4]);
-                            USER_SIGNED_IN.putString("favoriteSports", userArray[5]);
-                            USER_SIGNED_IN.putString("favoriteCable", userArray[6]);
+                            USER_SIGNED_IN.putString("favouriteSports", userArray[5]);
+                            USER_SIGNED_IN.putString("favouriteCableNetworks", userArray[6]);
 
                             showOtherUsersIntent.putExtras(USER_SIGNED_IN);
 
@@ -80,7 +81,7 @@ public class login extends AppCompatActivity {
                     }
 
                     if (!user_found_in_database && !incorrect_login_info) {
-                        if (username.length() < 6) {
+                        if (username.length() < 4) {
                             Toast.makeText(login.this, "I couldn't find your username in the database. I'll creating a new account for you but please enter a username that's at least 4 characters long.", Toast.LENGTH_LONG).show();
                         }
                         if (password.length() < 6) {
