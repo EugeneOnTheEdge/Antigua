@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,33 +26,26 @@ public class MainActivity extends AppCompatActivity {
 
         this.button_get_started = findViewById(R.id.button_get_started);
 
-        String database = "users_database.txt";
+        String database = "USERS_DATABASE.txt";
         FileOutputStream outputStream;
 
         String USERS = "jackstutter,jstutter01,63,Jack,Stutterman,Golf-Frisbee,News,\n" +
                 "jul.dementie,dementia101,50,Julia,Dementia,Walking,Talk Shows,\n" +
                 "diashley,ashdie1950,89,Ashley,Diabetie,,Cooking Channel,\n";
 
-        int numberOfUsers = 0;
-
+        // Try opening the database, if it doesn't exist then create a new one
         try {
             FileInputStream fis = openFileInput(database);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader br = new BufferedReader(isr);
-            while ( (br.readLine()) != null ) {
-                numberOfUsers++;
-            }
-
-            // Add USERS to database if database is empty
-            if (numberOfUsers < 1) {
+        }
+        catch (Exception e) {
+            try {
                 outputStream = openFileOutput(database, Context.MODE_APPEND);
                 outputStream.write(USERS.getBytes());
                 outputStream.close();
-                Toast.makeText(MainActivity.this, "User database has been created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "New database has been created.", Toast.LENGTH_SHORT).show();
             }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+            catch (Exception e2) {
+            }
         }
 
         final Intent loginIntent = new Intent(this, login.class);
