@@ -23,9 +23,6 @@ public class setNameOfUsers extends AppCompatActivity {
         this.edittext_lastName = findViewById(R.id.edittext_lastName);
         this.button_next = findViewById(R.id.button_next);
 
-        Bundle b = getIntent().getExtras();
-        Toast.makeText(setNameOfUsers.this, "Username: " + b.getString("username"), Toast.LENGTH_SHORT).show();
-
         final Intent favouriteSportIntent = new Intent(this, favouriteSport.class);
 
         this.button_next.setOnClickListener(new View.OnClickListener() {
