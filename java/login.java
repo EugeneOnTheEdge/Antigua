@@ -45,7 +45,7 @@ public class login extends AppCompatActivity {
                 String username = edittext_username.getText().toString().toLowerCase();
                 String password = edittext_password.getText().toString();
 
-                if (password.length() == 0) {
+                if ((username.length() == 0) || (password.length() == 0)) {
                     Toast.makeText(login.this, "Please fill in both the username and password fields..", Toast.LENGTH_SHORT).show();
                 }
 
@@ -80,6 +80,9 @@ public class login extends AppCompatActivity {
                     }
 
                     if (!user_found_in_database && !incorrect_login_info) {
+                        if (username.length() < 6) {
+                            Toast.makeText(login.this, "I couldn't find your username in the database. I'll creating a new account for you but please enter a username that's at least 4 characters long.", Toast.LENGTH_LONG).show();
+                        }
                         if (password.length() < 6) {
                             Toast.makeText(login.this, "I couldn't find your username in the database. I'll creating a new account for you but please enter a password that's at least 6 characters long.", Toast.LENGTH_LONG).show();
                         }
