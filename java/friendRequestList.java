@@ -33,6 +33,8 @@ public class friendRequestList extends AppCompatActivity {
     private String requester_favourite_sports;
     private String requester_favourite_cablenetworks;
 
+    private ArrayList<String> friendRequests_database;
+
     private int requestIndex;
 
     @Override
@@ -57,9 +59,10 @@ public class friendRequestList extends AppCompatActivity {
 
         final Bundle USER_SIGNED_IN = getIntent().getExtras();
 
-        final ArrayList<String> friendRequests_database = new ArrayList<>();
+        this.friendRequests_database = new ArrayList<>();
 
         final Intent showingOtherUsersIntent = new Intent(this, showingOtherUsers.class);
+        showingOtherUsersIntent.putExtras(USER_SIGNED_IN);
 
         requestsDatabase = "FRIEND_REQUESTS.txt";
         usersDatabase = "USERS_DATABASE.txt";
@@ -120,7 +123,7 @@ public class friendRequestList extends AppCompatActivity {
                     while ( (user = br.readLine()) != null ) {
                         userArray = user.split(",");
 
-                        if (requestReceiver.equals(userArray[0])) {
+                        if (friendRequests_database.get(i).split(",")[0].equals(userArray[0])) {
                             requester_firstName = userArray[3];
                             requester_lastName = userArray[4];
                             requester_age = userArray[2];
