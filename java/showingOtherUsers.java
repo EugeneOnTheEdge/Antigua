@@ -3,6 +3,7 @@ package com.example.project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ public class showingOtherUsers extends AppCompatActivity {
     Button previousFriend;
     Button nextFriend;
     private Button button_addFriend;
+    private Button button_viewFriendRequest;
     TextView counter;
     private int index;
     private String[] items;
@@ -33,6 +35,7 @@ public class showingOtherUsers extends AppCompatActivity {
         setContentView(R.layout.activity_showing_other_users);
 
         final Bundle USER_SIGNED_IN = getIntent().getExtras();
+        final Intent friendRequestListIntent = new Intent(this, friendRequestList.class);
 
         //VARIABLES
         userName = (TextView) findViewById(R.id.TextView_userName);
@@ -40,6 +43,14 @@ public class showingOtherUsers extends AppCompatActivity {
         previousFriend = (Button) findViewById(R.id.button_previousFriend);
         nextFriend = (Button) findViewById(R.id.button_nextFriend);
         this.button_addFriend = findViewById(R.id.button_addFriend);
+        this.button_viewFriendRequest = findViewById(R.id.button_viewFriendRequest);
+
+        this.button_viewFriendRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(friendRequestListIntent);
+            }
+        });
 
         String database = "USERS_DATABASE.txt";
         FileOutputStream outputStream;
