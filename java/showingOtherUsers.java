@@ -36,6 +36,7 @@ public class showingOtherUsers extends AppCompatActivity {
 
         final Bundle USER_SIGNED_IN = getIntent().getExtras();
         final Intent friendRequestListIntent = new Intent(this, friendRequestList.class);
+        friendRequestListIntent.putExtras(USER_SIGNED_IN);
 
         //VARIABLES
         userName = (TextView) findViewById(R.id.TextView_userName);
@@ -99,8 +100,12 @@ public class showingOtherUsers extends AppCompatActivity {
 
 
         items = lines.get(index).split(",");
+        if (items[0].equals(USER_SIGNED_IN.getString("username"))) {
+            index++;
+        }
         userName.setText(items[3] + " " + items[4]);
         infoOfUser.setText(items[3] + " is " + items[2] + " and enjoys " + items[5] + " and " + items[6]);
+
 
         this.button_addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +117,8 @@ public class showingOtherUsers extends AppCompatActivity {
                     outputStream = openFileOutput(database, Context.MODE_APPEND);
                     outputStream.write((USER_SIGNED_IN.get("username") + "," + items[0] + ",\n").getBytes());
                     outputStream.close();
+
+                    Toast.makeText(showingOtherUsers.this, "Friend request sent to " + userName, Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e2) {
                     // do nothing
@@ -126,34 +133,67 @@ public class showingOtherUsers extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(index == 0) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Reached Beginning", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "You've reached the beginning", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 else {
                     index--;
-                    counter.setText(index + 1 + "");
                     ArrayList<String> theLines = tempLines;
                     items = theLines.get(index).split(",");
-                    userName.setText(items[3] + " " + items[4]);
-                    infoOfUser.setText(items[3] + " is " + items[2] + " and enjoys " + items[5] + " and " + items[6]);
-                }
 
-                button_addFriend.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            String database = "FRIEND_REQUESTS.txt";
-                            FileOutputStream outputStream;
+                    if (items[0].equals(USER_SIGNED_IN.getString("username"))) {
+                        if (index - 1 >= 0) {
+                            index--;
 
-                            outputStream = openFileOutput(database, Context.MODE_APPEND);
-                            outputStream.write((USER_SIGNED_IN.get("username") + "," + items[0] + ",\n").getBytes());
-                            outputStream.close();
+                            theLines = tempLines;
+                            items = theLines.get(index).split(",");
+                            userName.setText(items[3] + " " + items[4]);
+                            infoOfUser.setText(items[3] + " is " + items[2] + " and enjoys " + items[5] + " and " + items[6]);
+
+                            button_addFriend.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    try {
+                                        String database = "FRIEND_REQUESTS.txt";
+                                        FileOutputStream outputStream;
+
+                                        outputStream = openFileOutput(database, Context.MODE_APPEND);
+                                        outputStream.write((USER_SIGNED_IN.get("username") + "," + items[0] + ",\n").getBytes());
+                                        outputStream.close();
+                                        Toast.makeText(showingOtherUsers.this, "Friend request sent to " + items[3] + " " + items[4], Toast.LENGTH_LONG).show();
+                                    } catch (Exception e2) {
+                                        // do nothing
+                                    }
+                                }
+                            });
                         }
-                        catch (Exception e2) {
-                            // do nothing
-                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "You've reached the beginning", Toast.LENGTH_SHORT).show();
                     }
-                });
+                    else {
+                        theLines = tempLines;
+                        items = theLines.get(index).split(",");
+                        userName.setText(items[3] + " " + items[4]);
+                        infoOfUser.setText(items[3] + " is " + items[2] + " and enjoys " + items[5] + " and " + items[6]);
+
+                        button_addFriend.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String database = "FRIEND_REQUESTS.txt";
+                                    FileOutputStream outputStream;
+
+                                    outputStream = openFileOutput(database, Context.MODE_APPEND);
+                                    outputStream.write((USER_SIGNED_IN.get("username") + "," + items[0] + ",\n").getBytes());
+                                    outputStream.close();
+                                    Toast.makeText(showingOtherUsers.this, "Friend request sent to " + items[3] + " " + items[4], Toast.LENGTH_LONG).show();
+                                } catch (Exception e2) {
+                                    // do nothing
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
 
@@ -166,29 +206,62 @@ public class showingOtherUsers extends AppCompatActivity {
                 }
                 else {
                     index++;
-                    counter.setText(index + 1 + "");
                     ArrayList<String> theLines = tempLines;
-                    String[] items = theLines.get(index).split(",");
-                    userName.setText(items[3] + " " + items[4]);
-                    infoOfUser.setText(items[3] + " is " + items[2] + " and enjoys " + items[5] + " and " + items[6]);
-                }
+                    items = theLines.get(index).split(",");
 
-                button_addFriend.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            String database = "FRIEND_REQUESTS.txt";
-                            FileOutputStream outputStream;
+                    if (items[0].equals(USER_SIGNED_IN.getString("username"))) {
+                        if (index + 1 < size) {
+                            index++;
 
-                            outputStream = openFileOutput(database, Context.MODE_APPEND);
-                            outputStream.write((USER_SIGNED_IN.get("username") + "," + items[0] + ",\n").getBytes());
-                            outputStream.close();
+                            theLines = tempLines;
+                            items = theLines.get(index).split(",");
+                            userName.setText(items[3] + " " + items[4]);
+                            infoOfUser.setText(items[3] + " is " + items[2] + " and enjoys " + items[5] + " and " + items[6]);
+
+                            button_addFriend.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    try {
+                                        String database = "FRIEND_REQUESTS.txt";
+                                        FileOutputStream outputStream;
+
+                                        outputStream = openFileOutput(database, Context.MODE_APPEND);
+                                        outputStream.write((USER_SIGNED_IN.get("username") + "," + items[0] + ",\n").getBytes());
+                                        outputStream.close();
+                                        Toast.makeText(showingOtherUsers.this, "Friend request sent to " + items[3] + " " + items[4], Toast.LENGTH_LONG).show();
+                                    } catch (Exception e2) {
+                                        // do nothing
+                                    }
+                                }
+                            });
                         }
-                        catch (Exception e2) {
-                            // do nothing
-                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "You've reached the end", Toast.LENGTH_SHORT).show();
                     }
-                });
+                    else {
+                        theLines = tempLines;
+                        items = theLines.get(index).split(",");
+                        userName.setText(items[3] + " " + items[4]);
+                        infoOfUser.setText(items[3] + " is " + items[2] + " and enjoys " + items[5] + " and " + items[6]);
+
+                        button_addFriend.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    String database = "FRIEND_REQUESTS.txt";
+                                    FileOutputStream outputStream;
+
+                                    outputStream = openFileOutput(database, Context.MODE_APPEND);
+                                    outputStream.write((USER_SIGNED_IN.get("username") + "," + items[0] + ",\n").getBytes());
+                                    outputStream.close();
+                                    Toast.makeText(showingOtherUsers.this, "Friend request sent to " + items[3] + " " + items[4], Toast.LENGTH_LONG).show();
+                                } catch (Exception e2) {
+                                    // do nothing
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
     }
